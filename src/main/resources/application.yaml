@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    platform: geodb
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: create-drop
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        #optional - generate statistics to check if L2/query cache is actually being used.
+        generate_statistics: true
+        use_sql_comments: false
+        format_sql: false
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.spatial.dialect.h2geodb.GeoDBDialect
+        cache:
+          use_second_level_cache: true
+          region:
+            #required - classpath to cache region factory.
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+      javax:
+        persistence:
+          sharedCache:
+            #required
+            # enable selective caching mode - only entities with @Cacheable annotation will use L2 cache.
+            # enable all caching mode - all entities will use L2 cache,
+            #     will thrown "org.geolatte.geom.crs.Geographic2DCoordinateReferenceSystem cannot be cast to java.io.Serializable"
+            mode: ENABLE_SELECTIVE #ALL,ENABLE_SELECTIVE
+logging:
+  level: info
+    org.hibernate: debug
