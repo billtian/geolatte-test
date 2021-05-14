@@ -1,6 +1,4 @@
 spring:
-  datasource:
-    platform: geodb
   jpa:
     show_sql: true
     hibernate:
@@ -33,5 +31,6 @@ spring:
             #     will thrown "org.geolatte.geom.crs.Geographic2DCoordinateReferenceSystem cannot be cast to java.io.Serializable"
             mode: ENABLE_SELECTIVE #ALL,ENABLE_SELECTIVE
 logging:
-  level: info
+  level:
+    root: info
     org.hibernate: debug
